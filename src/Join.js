@@ -3,14 +3,14 @@ import React, { Component } from 'react'
 class Join extends Component {
 
     constructor(props) {
-        super(props)
+        super(props);
 
         this.state = {
             username: '',
             etherAmount: 1
-        }
+        };
 
-        this.handleUserNameChange.bind(this) // TODO why doesn't this work?
+        this.handleUserNameChange.bind(this); // TODO why doesn't this work?
         this.clickButton.bind(this)
     }
 
@@ -37,7 +37,7 @@ class Join extends Component {
     }
 
     async clickButton() {
-        let result = await this.tokenInstance.register.sendTransaction(
+        await this.tokenInstance.register.sendTransaction(
             this.state.username,
             {from: this.account, value: new window.web3.BigNumber(window.web3.toWei(this.state.etherAmount,'ether'))}
         )

@@ -5,10 +5,7 @@ class MemberRow extends Component {
     render() {
 
         const maxWidth = 500;
-        const scale = maxWidth / this.props.totalTokens; // multiply this times a token quantity to get a pixel quantity
-        // const scaledWidth = this.props.balance.toNumber() / this.props.totalTokens * maxWidth;
-        // const scaledWidth = this.props.balance.toNumber() / this.props.totalTokens * maxWidth;
-
+        const scale = maxWidth / this.props.totalTokens;
         const balanceWidth = this.props.balance.toNumber() * scale;
         const availableWidth = this.props.availableBalance * scale;
 
