@@ -17,23 +17,21 @@ class MemberTable extends Component {
         this.tokenInstance = await this.props.getContract(this.props.token);
 
         // TODO this code should also be modular
-        // const users = getAllUsers()
-        const memberCount = await this.tokenInstance.memberCount()
-        const indexesToRetrieve = [...Array(memberCount.toNumber()).keys()]
+        const memberCount = await this.tokenInstance.memberCount();
+        const indexesToRetrieve = [...new Array(memberCount.toNumber()).keys()];
 
-        const functions = indexesToRetrieve.map(index => this.tokenInstance.findMemberByIndex(index))
-        let results = await Promise.all(functions)
+        const functions = indexesToRetrieve.map(index => this.tokenInstance.findMemberByIndex(index));
+        let results = await Promise.all(functions);
 
         // TODO: this code should be modular. it will be used a lot
-        let users = []
+        let users = [];
         let totalTokens = 0;
         for (const [address, username, active, elected, balance, backing] of results) {
             totalTokens += balance.toNumber();
-            const totalBacking = balance + backing
             users.push({address, username, elected, balance, backing})
         }
 
-        users.sort((a,b) => b.balance - a.balance )
+        users.sort((a,b) => b.balance - a.balance );
 
         this.setState({users, totalTokens})
 
@@ -49,7 +47,7 @@ class MemberTable extends Component {
 
         let userList = users.map(({ address, username, elected, balance, backing }) =>
             <MemberRow key={address} username={username} elected={elected} balance={balance} backing={backing} totalTokens={this.state.totalTokens} availableBalance={1000}/>
-        )
+        );
 
         return (
             <div>
